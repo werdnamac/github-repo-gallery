@@ -1,5 +1,7 @@
-// variable for the overview section of the index - for the profile info
+// variable for the overview section on the index - for the profile info
 const overview = document.querySelector(".overview");
+// variable for the repo list section on the index page - to list all repos
+const repoList = document.querySelector(".repo-list")
 const username = "werdnamac";
 
 //fetch user info from github
@@ -30,6 +32,26 @@ const displayInfo = function(userInfo) {
     </div> 
     `
     overview.append(userDiv);
-
     
 }
+
+// fetch names and info about all repos
+const getRepoInfo = async function() {
+  const repoInfoRequest = await fetch(`https://api.github.com/users/${username}/repos?sort=updated?per_page=100`);
+  let repoInfo = await repoInfoRequest.json();
+  displayRepoInfo(repoInfo);
+  
+}
+
+// loop through all repo info and append to a list of repos
+const displayRepoInfo = function (repoInfo) {
+  for (const repo of repoInfo) {
+    const repoItem = document.createElement("li");
+    repoItem.classList.add("repo");
+    repoItem.innerHTML = `<h3>${repo.name}</h3>`
+    repoList.append(repoItem);
+  }
+}
+
+getRepoInfo();
+
