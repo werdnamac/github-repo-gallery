@@ -93,7 +93,7 @@ const displayRepoDetails = function (repoName, languageArray) {
 
   // create a div with all repo info and add it to the repo Data section
   const repoDataDiv = document.createElement("div");
-  repoDataDiv.innerHtml =
+  repoDataDiv.innerHTML =
 
   `
   <h3>Name: ${username}</h3>
