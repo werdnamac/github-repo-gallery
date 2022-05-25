@@ -6,6 +6,10 @@ const repoList = document.querySelector(".repo-list")
 const allRepos = document.querySelector(".repos");
 // variable for the repo info section on the index page - to list all info about the selected repo
 const repoData = document.querySelector(".repo-data");
+// select the "Back to Repo Gallery" Button
+const backToRepos = document.querySelector(".view-repos");
+// select the search window to search repos
+const filterInput = document.querySelector(".filter-repos");
 
 const username = "werdnamac";
 
@@ -105,5 +109,16 @@ const displayRepoDetails = function (repoName, languageArray) {
   
   `;
   repoData.append(repoDataDiv);
-
+  backToRepos.classList.remove("hide");
 };
+
+// button to return to the list of repos
+  backToRepos.addEventListener ("click", function () {
+  // hide the specific repo data 
+    repoData.classList.add("hide");
+  // unhide the list of repos
+    allRepos.classList.remove("hide");
+  // hide this button
+    backToRepos.classList.add("hide");
+
+});
