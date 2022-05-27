@@ -72,6 +72,7 @@ repoList.addEventListener("click", function(e) {
   if (e.target.matches("h3")) {
     const repoName = e.target.innerText;
     getRepoDetails(repoName);
+    console.log(repoName);
   }
 });
 
@@ -88,11 +89,11 @@ const getRepoDetails = async function(repoName) {
   for (const key in languageData) {
     languageArray.push(key);
   }
-  displayRepoDetails(repoName, languageArray);
+  displayRepoDetails(repoDetails, languageArray);
 }
 
 // display repo details
-const displayRepoDetails = function (repoName, languageArray) {
+const displayRepoDetails = function (repoDetails, languageArray) {
 
   //get the repo-data class ready to be shown
   repoData.innerHTML = "";
@@ -101,17 +102,20 @@ const displayRepoDetails = function (repoName, languageArray) {
 
   // create a div with all repo info and add it to the repo Data section
   const repoDataDiv = document.createElement("div");
+  
   repoDataDiv.innerHTML =
 
   `
   <h3>Name: ${username}</h3>
-  <p>Description: ${repoName.description}</p>
-  <p>Default Branch: ${repoName.default_branch}</p>
+  <p>Description: ${repoDetails.description}</p>
+  <p>Default Branch: ${repoDetails.default_branch}</p>
   <p>Languages: ${languageArray.join(", ")}</p>
-  <a class="visit" href="${repoName.html_url}" target="_blank" 
+  <a class="visit" href="${repoDetails.html_url}" target="_blank" 
   rel="noreferrer noopener">View Repo on GitHub!</a>
   
+  
   `;
+  
   repoData.append(repoDataDiv);
   backToRepos.classList.remove("hide");
 };
