@@ -68,6 +68,7 @@ const displayRepoInfo = function (repoInfo) {
 }
 
 
+//if a repo is selected
 repoList.addEventListener("click", function(e) {
   if (e.target.matches("h3")) {
     const repoName = e.target.innerText;
@@ -94,7 +95,6 @@ const getRepoDetails = async function(repoName) {
 
 // display repo details
 const displayRepoDetails = function (repoDetails, languageArray) {
-
   //get the repo-data class ready to be shown
   repoData.innerHTML = "";
   repoData.classList.remove("hide");
@@ -106,7 +106,7 @@ const displayRepoDetails = function (repoDetails, languageArray) {
   repoDataDiv.innerHTML =
 
   `
-  <h3>Name: ${username}</h3>
+  <h3>Name: ${repoDetails.name}</h3>
   <p>Description: ${repoDetails.description}</p>
   <p>Default Branch: ${repoDetails.default_branch}</p>
   <p>Languages: ${languageArray.join(", ")}</p>
@@ -135,7 +135,6 @@ filterInput.addEventListener("input", function (e) {
   const searchText = e.target.value;
   // turn the captured text to lower case
   const lowerSearchText = searchText.toLowerCase();
-  
   //select all repos in document
   const repos = document.querySelectorAll(".repo");
 
@@ -151,4 +150,4 @@ filterInput.addEventListener("input", function (e) {
       } // if else clause ends here
     } //for look ends here
 
-  });
+  }); 
