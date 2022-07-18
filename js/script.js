@@ -54,8 +54,11 @@ const getRepoInfo = async function() {
   
 }
 
-// loop through all repo info and append to a list of repos
+// display a search bar and all the repos
 const displayRepoInfo = function (repoInfo) {
+  // first show the search bar
+  filterInput.classList.remove("hide");
+  //loop through all repo info and append to a list of repos
   for (const repo of repoInfo) {
     const repoItem = document.createElement("li");
     repoItem.classList.add("repo");
@@ -65,6 +68,7 @@ const displayRepoInfo = function (repoInfo) {
 }
 
 
+//if a repo is selected
 repoList.addEventListener("click", function(e) {
   if (e.target.matches("h3")) {
     const repoName = e.target.innerText;
@@ -85,11 +89,11 @@ const getRepoDetails = async function(repoName) {
   for (const key in languageData) {
     languageArray.push(key);
   }
-  displayRepoDetails(repoName, languageArray);
+  displayRepoDetails(repoDetails, languageArray);
 }
 
 // display repo details
-const displayRepoDetails = function (repoName, languageArray) {
+const displayRepoDetails = function (repoDetails, languageArray) {
   //get the repo-data class ready to be shown
   repoData.innerHTML = "";
   repoData.classList.remove("hide");
@@ -100,11 +104,11 @@ const displayRepoDetails = function (repoName, languageArray) {
   repoDataDiv.innerHTML =
 
   `
-  <h3>Name: ${username}</h3>
-  <p>Description: ${repoName.description}</p>
-  <p>Default Branch: ${repoName.default_branch}</p>
+  <h3>Name: ${repoDetails.name}</h3>
+  <p>Description: ${repoDetails.description}</p>
+  <p>Default Branch: ${repoDetails.default_branch}</p>
   <p>Languages: ${languageArray.join(", ")}</p>
-  <a class="visit" href="${repoName.html_url}" target="_blank" 
+  <a class="visit" href="${repoDetails.html_url}" target="_blank" 
   rel="noreferrer noopener">View Repo on GitHub!</a>
   
   `;
@@ -122,3 +126,25 @@ const displayRepoDetails = function (repoName, languageArray) {
     backToRepos.classList.add("hide");
 
 });
+
+filterInput.addEventListener("input", function (e) {
+  const searchText = e.target.value;
+  // turn the captured text to lower case
+  const lowerSearchText = searchText.toLowerCase();
+
+  //select all repos in document
+  const repos = document.querySelectorAll(".repo");
+
+  for (const repo of repos) {
+    // looping through all the repos, capturing lower case versions of all inner text
+    const lowerRepo = repo.innerText.toLowerCase();
+    // only show repos that include some of the searched text
+    if (lowerRepo.includes(lowerSearchText)) {
+     repo.classList.remove("hide");
+    }
+      else {
+        repo.classList.add("hide");
+      } // if else clause ends here
+    } //for look ends here
+
+  }); 
